@@ -27,7 +27,7 @@ function Login() {
             "radial-gradient(circle, rgba(36,36,36,1) 10%, rgba(0,109,225,1) 100%)",
         }}
       >
-        <Paper radius={"md"} radius="lg">
+        <Paper radius="lg">
           <Image
             src={"/vitLogo.svg"}
             radius={"lg"}
