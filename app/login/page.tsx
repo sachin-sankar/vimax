@@ -11,13 +11,19 @@ import {
   PasswordInput,
   Button,
   Anchor,
+  LoadingOverlay,
 } from "@mantine/core";
-import { useViewportSize } from "@mantine/hooks";
+import { useTimeout, useViewportSize } from "@mantine/hooks";
 import { IconLogin, IconLogin2 } from "@tabler/icons-react";
-import React from "react";
+import React, { useState } from "react";
 
 function Login() {
   const { height, width } = useViewportSize();
+  const [loading, setLoading] = useState(false);
+  const { start, clear } = useTimeout(() => {
+    setLoading(false);
+    window.location.replace("/");
+  }, 3000);
   return (
     <>
       <Center
@@ -47,6 +53,10 @@ function Login() {
             data={["Student", "Faculty", "Parent"]}
           ></SegmentedControl>
           <Stack m={"md"}>
+            <LoadingOverlay
+              visible={loading}
+              loaderProps={{ size: "xl", type: "bars" }}
+            />
             <Input.Wrapper
               label="Username"
               description="Your username as registred"
@@ -60,6 +70,10 @@ function Login() {
               rightSection={<IconLogin2 />}
               variant="gradient"
               gradient={{ from: "violet", to: "cyan", deg: 90 }}
+              onClick={() => {
+                setLoading(true);
+                start();
+              }}
             >
               Login
             </Button>
